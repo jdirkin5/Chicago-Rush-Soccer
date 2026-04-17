@@ -35,27 +35,49 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== TOP BAR ===== */
-.topbar {
-  background: var(--rush-blue-darker);
-  padding: 14px 32px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 13px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 600;
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
-.topbar-brand {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
 }
-.topbar-brand span { color: var(--rush-yellow); }
-.topbar-meta { color: rgba(255,255,255,0.6); font-size: 11px; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+
+/* Marker pop-in */
+.tier-marker {
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+.tier-marker.in-view {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* GA Aspire spotlight ring — subtle pulsing aura when in view */
+.tier-card.tier-top.visible.in-view {
+  animation: tierTopAura 4s ease-in-out infinite;
+}
+@keyframes tierTopAura {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 214, 51, 0.15),
+      0 20px 40px rgba(0,0,0,0.2),
+      0 0 0 0 rgba(255, 214, 51, 0.0);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 214, 51, 0.35),
+      0 20px 40px rgba(0,0,0,0.2),
+      0 0 50px 4px rgba(255, 214, 51, 0.18);
+  }
+}
 
 /* ===== HERO ===== */
 .hero {
@@ -339,7 +361,7 @@ body {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 32px 36px;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.4s ease, box-shadow 0.4s ease;
   opacity: 0;
   transform: translateY(4px);
   display: none;
@@ -350,6 +372,14 @@ body {
   display: block;
   opacity: 1;
   transform: translateY(0);
+}
+.tier-card:hover {
+  border-color: rgba(255, 214, 51, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+}
+.tier-card.tier-top:hover {
+  box-shadow: 0 0 0 1px rgba(255, 214, 51, 0.25), 0 24px 48px rgba(0,0,0,0.3), 0 0 60px rgba(255, 214, 51, 0.15);
 }
 .tier-card .level {
   font-family: 'Archivo', sans-serif;
@@ -510,6 +540,13 @@ body {
   padding: 32px 28px;
   border-right: 1px solid var(--line);
   position: relative;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.select-step:hover {
+  background: rgba(255, 214, 51, 0.04);
+}
+.select-step:hover .num {
+  text-shadow: 0 0 24px rgba(255, 214, 51, 0.5);
 }
 .select-step:last-child { border-right: none; }
 .select-step .num {
@@ -520,6 +557,7 @@ body {
   color: var(--rush-yellow);
   margin-bottom: 12px;
   display: block;
+  transition: text-shadow 0.4s ease;
 }
 .select-step .step-name {
   font-family: 'Barlow Condensed', sans-serif;
@@ -571,6 +609,12 @@ body {
   border-radius: 8px;
   position: relative;
   overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.team-type:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 214, 51, 0.4);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
 }
 .team-type::before {
   content: '';
@@ -579,6 +623,10 @@ body {
   width: 4px;
   height: 100%;
   background: var(--rush-yellow);
+  transition: width 0.3s ease;
+}
+.team-type:hover::before {
+  width: 6px;
 }
 .team-type .label {
   font-family: 'Archivo', sans-serif;
@@ -710,20 +758,8 @@ body {
   padding-bottom: 4px;
 }
 
-/* ===== FOOTER ===== */
-.footer {
-  background: var(--rush-blue-darker);
-  padding: 36px 32px;
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255,255,255,0.55);
-  border-top: 1px solid var(--line);
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-  .topbar { padding: 12px 20px; flex-direction: column; gap: 4px; }
-  .topbar-meta { font-size: 10px; }
   .hero { padding: 60px 20px 50px; }
   .hero-cta-secondary { display: block; margin: 16px 0 0; }
   .intro-grid { grid-template-columns: 1fr; gap: 28px; }
@@ -748,35 +784,29 @@ body {
 </head>
 <body>
 
-<!-- ===== TOP BAR ===== -->
-<div class="topbar">
-  <div class="topbar-brand">CHICAGO <span>RUSH</span> SOCCER</div>
-  <div class="topbar-meta">2026 / 27 SEASON</div>
-</div>
-
 <!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-eyebrow">Player Pathway</div>
   <h1>One Network.<span class="accent">One Pathway.</span></h1>
   <p class="hero-sub">Every Chicago Rush player has a place — and a path. From your first local camp to national showcases, our connected network of clubs gives you a clear path forward at every age and level.</p>
-  <a href="#cta" class="hero-cta">Find Tryouts &nbsp;→</a>
+  <a href="https://chicagorushsoccer.com/club/selectprogram" target="_top" class="hero-cta">Find Tryouts &nbsp;→</a>
   <a href="#pathway" class="hero-cta-secondary">See the Pathway</a>
 </section>
 
 <!-- ===== INTRO STRIP ===== -->
 <section class="intro-strip">
   <div class="intro-grid">
-    <div class="intro-item">
+    <div class="intro-item reveal">
       <div class="num">01</div>
       <div class="label">One Global Network</div>
       <div class="desc">Community club with global reach</div>
     </div>
-    <div class="intro-item">
+    <div class="intro-item reveal reveal-delay-1">
       <div class="num">04</div>
       <div class="label">Tiers of Play</div>
       <div class="desc">Club through National Elite — community travel soccer all the way to the highest levels of competition in the country</div>
     </div>
-    <div class="intro-item">
+    <div class="intro-item reveal reveal-delay-2">
       <svg class="infinite-svg" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
         <path class="infinite-track" id="infinite-path-bg" d="M 30,50 C 30,20 70,20 90,50 C 110,80 150,80 150,50 C 150,20 110,20 90,50 C 70,80 30,80 30,50 Z"/>
         <path class="infinite-glow" id="infinite-path" d="M 30,50 C 30,20 70,20 90,50 C 110,80 150,80 150,50 C 150,20 110,20 90,50 C 70,80 30,80 30,50 Z"/>
@@ -866,7 +896,7 @@ body {
 
     <div class="select-head">
       <div class="left">
-        <span class="badge">The Elite Umbrella</span>
+        <span class="badge">Represent Rush</span>
         <h2>Rush <span class="accent">Select.</span></h2>
       </div>
       <div class="right">
@@ -880,25 +910,25 @@ body {
     </div>
 
     <div class="select-track">
-      <div class="select-step">
+      <div class="select-step reveal">
         <span class="num">01</span>
         <div class="step-name">Rush Fest &amp; Local Camps</div>
         <div class="step-pill">All Players Welcome</div>
         <div class="step-desc">Open to every Chicago Rush player. Rush Fest is a national U12/U13 program in Colorado each summer. Local programs run year-round for all age groups.</div>
       </div>
-      <div class="select-step">
+      <div class="select-step reveal reveal-delay-1">
         <span class="num">02</span>
         <div class="step-name">Select ID Events</div>
         <div class="step-pill">Higher-Level Players</div>
         <div class="step-desc">Geared toward top players and composite team builds. High-level training and identification — Rush Select staff begin formally evaluating players for the next level.</div>
       </div>
-      <div class="select-step featured">
+      <div class="select-step featured reveal reveal-delay-2">
         <span class="num">03</span>
         <div class="step-name">Select Regional</div>
         <div class="step-pill">By Nomination</div>
         <div class="step-desc">Top performers nominated to Rush Regional teams. Compete at the International Rush Cup representing Chicago Rush at the regional level.</div>
       </div>
-      <div class="select-step featured">
+      <div class="select-step featured reveal reveal-delay-3">
         <span class="num">04</span>
         <div class="step-name">Select National</div>
         <div class="step-pill">By Invitation</div>
@@ -916,17 +946,17 @@ body {
     <h2 class="section-title">Team Structures</h2>
   </div>
   <div class="team-types">
-    <div class="team-type">
+    <div class="team-type reveal">
       <div class="label">Type 01</div>
       <h3>Club Travel Team</h3>
       <p>A single-club roster from one Rush affiliate. Your player's home team, training and competing together all season.</p>
     </div>
-    <div class="team-type">
+    <div class="team-type reveal reveal-delay-1">
       <div class="label">Type 02</div>
       <h3>Composite Team</h3>
       <p>The best of our network — players selected from across multiple Rush affiliates to form one elite roster for league or event play.</p>
     </div>
-    <div class="team-type">
+    <div class="team-type reveal reveal-delay-2">
       <div class="label">Type 03</div>
       <h3>Select Pool</h3>
       <p>An identification group, not a fixed roster. Players are chosen for events, showcases, and Regional/National team opportunities.</p>
@@ -974,14 +1004,11 @@ body {
   <div class="eyebrow">Next Step</div>
   <h2>Find Your Tryout. Start Your Soccer Journey.</h2>
   <p>Tryouts are open across the Chicago Rush network. Whichever tier you're aiming for, this is where it begins.</p>
-  <a href="#" class="btn-primary">Find Tryouts &amp; Register</a>
-  <a href="#" class="btn-secondary">Questions? →</a>
+  <a href="https://chicagorushsoccer.com/club/selectprogram" target="_top" class="btn-primary">Find Tryouts &amp; Register</a>
+  <a href="mailto:Ann@chicagorushsoccer.com" target="_top" class="btn-secondary">Questions? →</a>
 </section>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer">
-  © Chicago Rush Soccer · One Network. One Pathway.
-</footer>
+<!-- ===== FOOTER (removed - Sprocket provides) ===== -->
 
 <script>
   const toggle = document.getElementById('toggle');
@@ -1005,6 +1032,46 @@ body {
   buttons.forEach(b => {
     b.addEventListener('click', () => setSide(b.dataset.side));
   });
+
+  // ===== SCROLL REVEALS =====
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -60px 0px'
+  };
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal, .tier-marker, .tier-card.tier-top').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // ===== IFRAME AUTO-RESIZE =====
+  // Posts page height to parent so the embedding iframe can adjust
+  function postHeight() {
+    const h = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight
+    );
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'pathway-resize', height: h }, '*');
+    }
+  }
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  // Re-post height after toggle changes (cards swap → height may shift)
+  buttons.forEach(b => b.addEventListener('click', () => setTimeout(postHeight, 400)));
+  // Re-post periodically in case of late layout shifts (fonts loading, etc.)
+  setTimeout(postHeight, 600);
+  setTimeout(postHeight, 1500);
+  setTimeout(postHeight, 3000);
 
   // Infinity light — continuous baseline spin, scroll boosts it
   const infinitePath = document.getElementById('infinite-path');
