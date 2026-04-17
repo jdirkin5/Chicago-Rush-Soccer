@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Pathway — Chicago Rush Soccer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rush-blue: #0f3fb8;
+  --rush-blue-deep: #0a2d85;
+  --rush-blue-darker: #061f5f;
+  --rush-blue-light: #2657d9;
+  --rush-yellow: #ffd633;
+  --rush-yellow-soft: #ffe98a;
+  --ink: #061f5f;
+  --paper: #f5f7fb;
+  --white: #ffffff;
+  --line: rgba(255, 255, 255, 0.18);
+  --line-strong: rgba(255, 255, 255, 0.32);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--rush-blue);
+  color: var(--white);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  background: var(--rush-blue-darker);
+  padding: 14px 32px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.topbar-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+.topbar-brand span { color: var(--rush-yellow); }
+.topbar-meta { color: rgba(255,255,255,0.6); font-size: 11px; }
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  padding: 90px 32px 70px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top, rgba(38, 87, 217, 0.6) 0%, transparent 60%),
+    var(--rush-blue);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rush-yellow);
+  padding: 8px 16px;
+  border: 1px solid var(--rush-yellow);
+  border-radius: 999px;
+  margin-bottom: 28px;
+  position: relative;
+}
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 9vw, 120px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position: relative;
+}
+.hero h1 .accent {
+  color: var(--rush-yellow);
+  display: block;
+}
+.hero-sub {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  position: relative;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--rush-yellow);
+  color: var(--ink);
+  padding: 18px 36px;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(255, 214, 51, 0.3);
+}
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255, 214, 51, 0.45);
+}
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 16px;
+  color: var(--white);
+  text-decoration: none;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 4px;
+  transition: border-color 0.2s;
+}
+.hero-cta-secondary:hover { border-color: var(--rush-yellow); }
+
+/* ===== INTRO STRIP ===== */
+.intro-strip {
+  background: var(--rush-blue-deep);
+  padding: 50px 32px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.intro-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.intro-item {
+  text-align: center;
+}
+.intro-item .num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--rush-yellow);
+  margin-bottom: 8px;
+}
+
+/* Infinity SVG with traveling light */
+.infinite-svg {
+  display: inline-block;
+  width: 100px;
+  height: 60px;
+  margin-bottom: 8px;
+  overflow: visible;
+}
+.infinite-svg .infinite-track {
+  fill: none;
+  stroke: rgba(255, 214, 51, 0.18);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+.infinite-svg .infinite-glow {
+  fill: none;
+  stroke: var(--rush-yellow);
+  stroke-width: 5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 4px rgba(255, 214, 51, 1))
+          drop-shadow(0 0 10px rgba(255, 214, 51, 0.85))
+          drop-shadow(0 0 22px rgba(255, 214, 51, 0.55))
+          drop-shadow(0 0 40px rgba(255, 214, 51, 0.35));
+  will-change: stroke-dashoffset;
+}
+.infinite-svg .infinite-glow-trail {
+  fill: none;
+  stroke: rgba(255, 247, 200, 0.6);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: blur(1px);
+  will-change: stroke-dashoffset;
+}
+.intro-item .label {
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 6px;
+}
+.intro-item .desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ===== SECTION HEADER ===== */
+.section {
+  padding: 90px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section-head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section-eyebrow {
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rush-yellow);
+  margin-bottom: 16px;
+  display: block;
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+.section-sub {
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(255,255,255,0.8);
+  font-size: 16px;
+}
+
+/* ===== TOGGLE ===== */
+.toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 56px;
+}
+.toggle {
+  display: inline-flex;
+  background: var(--rush-blue-darker);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 6px;
+  position: relative;
+}
+.toggle-btn {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 14px 36px;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: color 0.3s ease;
+}
+.toggle-btn.active { color: var(--ink); }
+.toggle-pill {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(50% - 6px);
+  height: calc(100% - 12px);
+  background: var(--rush-yellow);
+  border-radius: 999px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+.toggle.boys .toggle-pill { transform: translateX(100%); }
+
+/* ===== PATHWAY LADDER ===== */
+.ladder {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.ladder::before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: linear-gradient(to bottom,
+    var(--rush-yellow) 0%,
+    var(--rush-yellow) 20%,
+    var(--line-strong) 100%);
+  z-index: 0;
+}
+.tier {
+  position: relative;
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 28px;
+  align-items: center;
+  margin-bottom: 24px;
+  z-index: 1;
+}
+.tier-card {
+  background: var(--rush-blue-deep);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px 36px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  opacity: 0;
+  transform: translateY(4px);
+  display: none;
+  grid-column: 2;
+  grid-row: 1;
+}
+.tier-card.visible {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+.tier-card .level {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rush-yellow);
+  margin-bottom: 10px;
+}
+.tier-card .name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 42px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.tier-card .meta {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 16px;
+  font-weight: 500;
+  font-family: 'Archivo', sans-serif;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.tier-card .desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.65;
+}
+.tier-card.tier-top {
+  background: linear-gradient(135deg, var(--rush-blue-deep) 0%, var(--rush-blue-darker) 100%);
+  border: 1px solid var(--rush-yellow);
+  box-shadow: 0 0 0 1px rgba(255, 214, 51, 0.15), 0 20px 40px rgba(0,0,0,0.2);
+}
+.tier-card.tier-top .level { color: var(--rush-yellow); }
+.tier-card.tier-foundation {
+  background: var(--rush-blue-light);
+  border-color: rgba(255,255,255,0.25);
+}
+
+.tier-marker {
+  grid-column: 1;
+  grid-row: 1;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--rush-blue);
+  border: 2px solid var(--rush-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--rush-yellow);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 6px var(--rush-blue), 0 0 24px rgba(255, 214, 51, 0.25);
+}
+
+.tier-empty { display: none; }
+
+/* ===== RUSH SELECT BAND ===== */
+.select-section {
+  background:
+    linear-gradient(135deg, rgba(255,214,51,0.05) 0%, transparent 100%),
+    var(--rush-blue-darker);
+  padding: 90px 32px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.select-section::before {
+  content: 'SELECT';
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%) rotate(-90deg);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 280px;
+  color: rgba(255,214,51,0.04);
+  letter-spacing: -0.02em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.select-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+.select-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 56px;
+}
+.select-head .left .badge {
+  display: inline-block;
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--rush-yellow);
+  padding: 6px 14px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+.select-head .left h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+.select-head .left h2 .accent { color: var(--rush-yellow); }
+.select-head .right p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.65;
+}
+.select-head .right .tags {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.select-head .right .tag {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: rgba(255,255,255,0.85);
+}
+
+.select-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+}
+.select-step {
+  padding: 32px 28px;
+  border-right: 1px solid var(--line);
+  position: relative;
+}
+.select-step:last-child { border-right: none; }
+.select-step .num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 1;
+  color: var(--rush-yellow);
+  margin-bottom: 12px;
+  display: block;
+}
+.select-step .step-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  margin-bottom: 16px;
+  min-height: 50px;
+}
+.select-step .step-pill {
+  display: inline-block;
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid var(--line-strong);
+  margin-bottom: 16px;
+}
+.select-step.featured .step-pill {
+  background: var(--rush-yellow);
+  color: var(--ink);
+  border-color: var(--rush-yellow);
+}
+.select-step .step-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+}
+
+/* ===== TEAM TYPES ===== */
+.team-types {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.team-type {
+  background: var(--rush-blue-deep);
+  border: 1px solid var(--line);
+  padding: 32px 28px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.team-type::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--rush-yellow);
+}
+.team-type .label {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rush-yellow);
+  margin-bottom: 10px;
+}
+.team-type h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.team-type p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.78);
+}
+
+/* ===== FAQ ===== */
+.faq-section {
+  background: var(--rush-blue-darker);
+  padding: 90px 32px;
+}
+.faq-inner {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item summary {
+  padding: 24px 0;
+  cursor: pointer;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  transition: color 0.2s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--rush-yellow);
+  transition: transform 0.3s;
+  line-height: 1;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:hover { color: var(--rush-yellow); }
+.faq-answer {
+  padding: 0 0 24px;
+  color: rgba(255,255,255,0.8);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 720px;
+}
+
+/* ===== FINAL CTA ===== */
+.final-cta {
+  background: var(--rush-yellow);
+  color: var(--ink);
+  padding: 90px 32px;
+  text-align: center;
+}
+.final-cta .eyebrow {
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: var(--rush-blue-deep);
+}
+.final-cta h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-cta p {
+  max-width: 560px;
+  margin: 0 auto 36px;
+  font-size: 17px;
+  color: var(--rush-blue-darker);
+}
+.final-cta .btn-primary {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--rush-yellow);
+  padding: 18px 40px;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+.final-cta .btn-primary:hover { transform: translateY(-2px); }
+.final-cta .btn-secondary {
+  display: inline-block;
+  margin-left: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 4px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--rush-blue-darker);
+  padding: 36px 32px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  border-top: 1px solid var(--line);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .topbar { padding: 12px 20px; flex-direction: column; gap: 4px; }
+  .topbar-meta { font-size: 10px; }
+  .hero { padding: 60px 20px 50px; }
+  .hero-cta-secondary { display: block; margin: 16px 0 0; }
+  .intro-grid { grid-template-columns: 1fr; gap: 28px; }
+  .section { padding: 60px 20px; }
+  .ladder::before { left: 28px; }
+  .tier { grid-template-columns: 56px 1fr; gap: 16px; }
+  .tier-marker { width: 56px; height: 56px; font-size: 20px; box-shadow: 0 0 0 4px var(--rush-blue), 0 0 16px rgba(255,214,51,0.25); }
+  .tier-card { padding: 22px 22px; }
+  .tier-card .name { font-size: 32px; }
+  .select-section { padding: 60px 20px; }
+  .select-section::before { font-size: 140px; }
+  .select-head { grid-template-columns: 1fr; gap: 24px; }
+  .select-track { grid-template-columns: 1fr; }
+  .select-step { border-right: none; border-bottom: 1px solid var(--line); }
+  .select-step:last-child { border-bottom: none; }
+  .team-types { grid-template-columns: 1fr; padding: 60px 20px; }
+  .faq-section { padding: 60px 20px; }
+  .final-cta { padding: 60px 20px; }
+  .final-cta .btn-secondary { display: block; margin: 16px auto 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <div class="topbar-brand">CHICAGO <span>RUSH</span> SOCCER</div>
+  <div class="topbar-meta">2026 / 27 SEASON</div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-eyebrow">Player Pathway</div>
+  <h1>One Network.<span class="accent">One Pathway.</span></h1>
+  <p class="hero-sub">Every Chicago Rush player has a place — and a path. From your first local camp to national showcases, our connected network of clubs gives you a clear path forward at every age and level.</p>
+  <a href="#cta" class="hero-cta">Find Tryouts &nbsp;→</a>
+  <a href="#pathway" class="hero-cta-secondary">See the Pathway</a>
+</section>
+
+<!-- ===== INTRO STRIP ===== -->
+<section class="intro-strip">
+  <div class="intro-grid">
+    <div class="intro-item">
+      <div class="num">01</div>
+      <div class="label">One Global Network</div>
+      <div class="desc">Community club with global reach</div>
+    </div>
+    <div class="intro-item">
+      <div class="num">04</div>
+      <div class="label">Tiers of Play</div>
+      <div class="desc">Club through National Elite — community travel soccer all the way to the highest levels of competition in the country</div>
+    </div>
+    <div class="intro-item">
+      <svg class="infinite-svg" viewBox="0 0 180 100" xmlns="http://www.w3.org/2000/svg">
+        <path class="infinite-track" id="infinite-path-bg" d="M 30,50 C 30,20 70,20 90,50 C 110,80 150,80 150,50 C 150,20 110,20 90,50 C 70,80 30,80 30,50 Z"/>
+        <path class="infinite-glow" id="infinite-path" d="M 30,50 C 30,20 70,20 90,50 C 110,80 150,80 150,50 C 150,20 110,20 90,50 C 70,80 30,80 30,50 Z"/>
+        <path class="infinite-glow-trail" id="infinite-path-trail" d="M 30,50 C 30,20 70,20 90,50 C 110,80 150,80 150,50 C 150,20 110,20 90,50 C 70,80 30,80 30,50 Z"/>
+      </svg>
+      <div class="label">Ways Up</div>
+      <div class="desc">The right spot for your player — no matter how high they climb</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PATHWAY LADDER ===== -->
+<section class="section" id="pathway">
+  <div class="section-head">
+    <span class="section-eyebrow">The Ladder</span>
+    <h2 class="section-title">Where Players Compete</h2>
+    <p class="section-sub">Opportunities for every player — all the way up to the highest levels of competition in the country.</p>
+  </div>
+
+  <div class="toggle-wrap">
+    <div class="toggle" id="toggle">
+      <div class="toggle-pill"></div>
+      <button class="toggle-btn active" data-side="girls">Rush Girls</button>
+      <button class="toggle-btn" data-side="boys">Rush Boys</button>
+    </div>
+  </div>
+
+  <div class="ladder">
+
+    <!-- TIER 1: TOP -->
+    <div class="tier">
+      <div class="tier-marker">01</div>
+      <div class="tier-card tier-top visible girls-card">
+        <div class="level">Tier 01 · National Top</div>
+        <div class="name">GA Aspire</div>
+        <div class="meta">National · Top Tier</div>
+        <div class="desc">Our highest girls platform, competing in the Girls Academy Aspire league with regional play, national showcases, and a national championship at season's end.</div>
+      </div>
+      <div class="tier-card tier-top boys-card">
+        <div class="level">Tier 01 · National Top</div>
+        <div class="name">EA</div>
+        <div class="meta">Elite Academy · National</div>
+        <div class="desc">Our highest boys platform — Elite Academy competition with national exposure and the opportunities for college recruitment.</div>
+      </div>
+    </div>
+
+    <!-- TIER 2: NATIONAL/REGIONAL -->
+    <div class="tier">
+      <div class="tier-marker">02</div>
+      <div class="tier-card visible girls-card">
+        <div class="level">Tier 02 · National League</div>
+        <div class="name">DPL</div>
+        <div class="meta">National · Regional Platform</div>
+        <div class="desc">Development Player League — high-level league play managed by GA, with structured competition and a direct stepping stone toward GA Aspire.</div>
+      </div>
+      <div class="tier-card boys-card">
+        <div class="level">Tier 02 · National League</div>
+        <div class="name">New Comp / NPL</div>
+        <div class="meta">National · Regional Platform</div>
+        <div class="desc">National Premier League competition — our second-tier boys platform offering competitive league play and a path up to Elite Academy.</div>
+      </div>
+    </div>
+
+    <!-- TIER 3: CLUB TEAMS -->
+    <div class="tier">
+      <div class="tier-marker">03</div>
+      <div class="tier-card visible girls-card">
+        <div class="level">Tier 03 · Club</div>
+        <div class="name">Club Teams</div>
+        <div class="meta">Full Club · Composite</div>
+        <div class="desc">The foundation of every Rush affiliate. Local club teams competing in regional leagues, with composite teams pulled from across the network for select events.</div>
+      </div>
+      <div class="tier-card boys-card">
+        <div class="level">Tier 03 · Club</div>
+        <div class="name">Club Teams</div>
+        <div class="meta">Full Club · Composite</div>
+        <div class="desc">The foundation of every Rush affiliate. Local club teams competing in regional leagues, with composite teams pulled from across the network for select events.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== RUSH SELECT BAND ===== -->
+<section class="select-section">
+  <div class="select-inner">
+
+    <div class="select-head">
+      <div class="left">
+        <span class="badge">The Elite Umbrella</span>
+        <h2>Rush <span class="accent">Select.</span></h2>
+      </div>
+      <div class="right">
+        <p>Everything above club travel sits under Rush Select — our identification and representation program for players competing at the highest levels. Select is how players get seen, evaluated, and earn their place on regional and national rosters.</p>
+        <div class="tags">
+          <span class="tag">Open to All Levels</span>
+          <span class="tag">Identification &amp; Representation</span>
+          <span class="tag">National Reach</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="select-track">
+      <div class="select-step">
+        <span class="num">01</span>
+        <div class="step-name">Rush Fest &amp; Local Camps</div>
+        <div class="step-pill">All Players Welcome</div>
+        <div class="step-desc">Open to every Chicago Rush player. Rush Fest is a national U12/U13 program in Colorado each summer. Local programs run year-round for all age groups.</div>
+      </div>
+      <div class="select-step">
+        <span class="num">02</span>
+        <div class="step-name">Select ID Events</div>
+        <div class="step-pill">Higher-Level Players</div>
+        <div class="step-desc">Geared toward top players and composite team builds. High-level training and identification — Rush Select staff begin formally evaluating players for the next level.</div>
+      </div>
+      <div class="select-step featured">
+        <span class="num">03</span>
+        <div class="step-name">Select Regional</div>
+        <div class="step-pill">By Nomination</div>
+        <div class="step-desc">Top performers nominated to Rush Regional teams. Compete at the International Rush Cup representing Chicago Rush at the regional level.</div>
+      </div>
+      <div class="select-step featured">
+        <span class="num">04</span>
+        <div class="step-name">Select National</div>
+        <div class="step-pill">By Invitation</div>
+        <div class="step-desc">Best regional players earn invitations to Rush National teams. PDP and national college showcases with coaches from across the country.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== TEAM TYPES ===== -->
+<section>
+  <div class="section-head" style="padding-top: 80px;">
+    <span class="section-eyebrow">Three Ways to Play</span>
+    <h2 class="section-title">Team Structures</h2>
+  </div>
+  <div class="team-types">
+    <div class="team-type">
+      <div class="label">Type 01</div>
+      <h3>Club Travel Team</h3>
+      <p>A single-club roster from one Rush affiliate. Your player's home team, training and competing together all season.</p>
+    </div>
+    <div class="team-type">
+      <div class="label">Type 02</div>
+      <h3>Composite Team</h3>
+      <p>The best of our network — players selected from across multiple Rush affiliates to form one elite roster for league or event play.</p>
+    </div>
+    <div class="team-type">
+      <div class="label">Type 03</div>
+      <h3>Select Pool</h3>
+      <p>An identification group, not a fixed roster. Players are chosen for events, showcases, and Regional/National team opportunities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-head" style="margin-bottom: 32px;">
+      <span class="section-eyebrow">Common Questions</span>
+      <h2 class="section-title">For Parents</h2>
+    </div>
+
+    <details class="faq-item">
+      <summary>How do I know which tier is right for my player?</summary>
+      <div class="faq-answer">Tryouts are the answer. Every player is evaluated by Rush coaches and placed on a team that matches their current level — and there's room to move up as they develop. If you're new to Rush, the best first step is to attend a tryout in your area.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What's the difference between a Club Team and Rush Select?</summary>
+      <div class="faq-answer">Club Teams are your player's regular season team — practices, league games, tournaments. Rush Select is a parallel pathway focused on identification and elite representation. Players in any tier can be invited into Select. The two run alongside each other.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>Can my player move between tiers during their time at Rush?</summary>
+      <div class="faq-answer">Yes — that's the point of the pathway. Players move up as they earn it, and our coaches communicate openly about development goals. Movement between affiliates within the network is also possible to find the right fit.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>What ages does the pathway cover?</summary>
+      <div class="faq-answer">The full pathway runs from youth through U19. Younger ages typically begin in Club Team play, with Rush Fest available at U12/U13 nationally. Tier-one platforms (GA Aspire, EA) generally run U13–U19.</div>
+    </details>
+
+    <details class="faq-item">
+      <summary>How does the network of Rush affiliates work?</summary>
+      <div class="faq-answer">Chicago Rush is a connected network of affiliated clubs across Chicagoland — including Rush North, Rush South, and Rush Oswego. Players train at their local affiliate but share access to the same elite pathway, composite teams, and Select opportunities.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta" id="cta">
+  <div class="eyebrow">Next Step</div>
+  <h2>Find Your Tryout. Start Your Soccer Journey.</h2>
+  <p>Tryouts are open across the Chicago Rush network. Whichever tier you're aiming for, this is where it begins.</p>
+  <a href="#" class="btn-primary">Find Tryouts &amp; Register</a>
+  <a href="#" class="btn-secondary">Questions? →</a>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  © Chicago Rush Soccer · One Network. One Pathway.
+</footer>
+
+<script>
+  const toggle = document.getElementById('toggle');
+  const buttons = toggle.querySelectorAll('.toggle-btn');
+  const girlsCards = document.querySelectorAll('.girls-card');
+  const boysCards = document.querySelectorAll('.boys-card');
+
+  function setSide(side) {
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.side === side));
+    toggle.classList.toggle('boys', side === 'boys');
+
+    if (side === 'girls') {
+      girlsCards.forEach(c => c.classList.add('visible'));
+      boysCards.forEach(c => c.classList.remove('visible'));
+    } else {
+      boysCards.forEach(c => c.classList.add('visible'));
+      girlsCards.forEach(c => c.classList.remove('visible'));
+    }
+  }
+
+  buttons.forEach(b => {
+    b.addEventListener('click', () => setSide(b.dataset.side));
+  });
+
+  // Infinity light — continuous baseline spin, scroll boosts it
+  const infinitePath = document.getElementById('infinite-path');
+  const infinitePathTrail = document.getElementById('infinite-path-trail');
+  if (infinitePath && infinitePathTrail) {
+    const totalLength = infinitePath.getTotalLength();
+    // Main glow: short bright comet (~14% of path)
+    infinitePath.style.strokeDasharray = `${totalLength * 0.14} ${totalLength}`;
+    // Trail: longer, dimmer streak behind it (~30% of path), offset slightly behind
+    infinitePathTrail.style.strokeDasharray = `${totalLength * 0.30} ${totalLength}`;
+
+    let baseOffset = 0;            // continuous animation
+    let scrollBoost = 0;           // extra offset from scrolling
+    let targetScrollBoost = 0;     // smooth-followed target
+
+    // Continuous baseline spin (always moving, even at rest)
+    const baselineSpeed = totalLength * 0.012; // px per frame ~ ~2 loops / sec at 60fps
+
+    function tick() {
+      // Smooth scroll boost easing
+      scrollBoost += (targetScrollBoost - scrollBoost) * 0.08;
+      baseOffset -= baselineSpeed;
+
+      const total = baseOffset + scrollBoost;
+      infinitePath.style.strokeDashoffset = total;
+      // Trail lags ~8% of path length behind the head
+      infinitePathTrail.style.strokeDashoffset = total + (totalLength * 0.08);
+
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Scroll injects a big speed burst
+    let lastScroll = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const delta = window.scrollY - lastScroll;
+      lastScroll = window.scrollY;
+      // Each pixel of scroll adds significant motion
+      targetScrollBoost -= delta * 4;
+    }, { passive: true });
+
+    // Decay the scroll boost back toward 0 so it's a "burst" not permanent
+    setInterval(() => { targetScrollBoost *= 0.85; }, 60);
+  }
+</script>
+
+</body>
+</html>
